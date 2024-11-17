@@ -1,8 +1,13 @@
 from typing import Annotated, List
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Request, Form
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from db.database import SessionLocal, Movie
 from sqlalchemy.orm import Session
 from model.movies import Movies
+
+template = Jinja2Templates(directory="templates")
 
 
 
@@ -19,18 +24,25 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-@app.post("/filmes", response_model=Movies)
-async def criar(filme: Movies, db: db_dependency):
-    db_movies = Movie(title=filme.title, director=filme.director, year=filme.year, gender=filme.gender)
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+@app.get("/filmes/register", response_class=HTMLResponse)
+async def exibir_formulario(request: Request):
+    return template.TemplateResponse("register.html", {"request": request})
+
+
+@app.post("/filmes/register", response_model=Movies)
+async def criar(db: db_dependency, title: str=Form(), director: str=Form(), year: int=Form(), gender: str=Form()):
+    db_movies = Movie(title=title, director=director, year=year, gender=gender)
     db.add(db_movies)
     db.commit()
     db.refresh(db_movies)
     return db_movies
 
-@app.get("/filmes", response_model=List[Movies])
-async def buscar(db: db_dependency):
-    fillmes = db.query(Movie).all()
-    return fillmes
+@app.get("/filmes", response_class=HTMLResponse)
+async def buscar(db: db_dependency, request: Request):
+    filmes = db.query(Movie).all()
+    return template.TemplateResponse("filmes.html", {"request":request, "filmes": filmes})
 
 @app.put("/filmes/{id}", response_model=Movies)
 async def atualizar(id: int, filme: Movies, db: db_dependency):

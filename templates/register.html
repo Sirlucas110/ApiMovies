@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">x
+    <link rel="stylesheet" href="{{url_for('static', path='moviesStyles.css')}}">
+    <title>API de Registro de Filmes</title>
+</head>
+<body>
+    <form action="/filmes/register" method="post">
+        <div class="container">
+            <h2>API de Registro de Filmes</h2>
+                <label for="title">Título:</label>
+                <input type="text" id="title" name="title" required>
+            
+                <label for="description">Gênero:</label>
+                <input type="text" id="gender" name="gender" required>
+            
+                <label for="year">Ano:</label>
+                <input type="year" id="year" name="year" required min="1888">
+            
+                <label for="director">Diretor:</label>
+                <input type="text" id="director" name="director" required>
+            
+                <button type="submit">Registrar Filme</button>
+        </div>
+    </form>
+</body>
+</html>

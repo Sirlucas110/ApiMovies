@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Filmes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+        .container {
+            width: 60%;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #006a7c;
+            color: white;
+        }
+        td {
+            background-color: #f9f9f9;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            width: 100%;
+            background-color: #006a7c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #00a2ca;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Buscar Filmes</h2>
+        <form action="/filmes" method="get">
+            <table id="filmesTable">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Diretor</th>
+                        <th>Ano</th>
+                        <th>Gênero</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for filme in filmes %}
+                        <tr>
+                            <td>{{ filme.title }}</td>
+                            <td>{{ filme.director }}</td>
+                            <td>{{ filme.year }}</td>
+                            <td>{{ filme.gender }}</td>
+                            <td><button class="editar">Editar</button></td>
+                            <td><button class="excluir">Excluir</button></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+           
+            <button><a href="http://127.0.0.1:8000/filmes/register">Registrar</a></button>
+            
+            
+        </form>
+    </div>
+
+</body>
+</html>
