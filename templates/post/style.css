@@ -1,0 +1,62 @@
+body {
+    background-image: url('./background.jpg');
+    background-size: cover;
+    font-family: "Geist Mono", monospace;
+    margin: 100px;
+    height: 50vh;
+    margin-top: 100px;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+}
+
+h2 {
+    text-align: center;
+    color: white;
+}
+
+.container-do-form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 600px;
+}
+
+form {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-top: 25px;
+}
+
+input, button {
+    padding: 10px;
+    margin-top: 5px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    box-sizing: border-box;
+}
+
+button {
+    font-family: "Geist Mono", monospace;
+    margin-top: 50px;
+    border-radius: 20px;
+    background-color: #002752;
+    background-image: linear-gradient(to right, #0056b3, #00a589);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-image: linear-gradient(to right, #003f4e, #003f4e);
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    
+}
