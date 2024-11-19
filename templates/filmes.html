@@ -6,88 +6,131 @@
     <title>Buscar Filmes</title>
     <style>
         body {
+            background-image: url('./background.jpg');
+            background-size: cover;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
+            background-color: #202020;
             padding: 20px;
         }
         h2 {
             text-align: center;
+            font-size: 30px;
+            color: white;
         }
         .container {
-            width: 60%;
+            width: 80%;
+            max-width: 900px;
             margin: auto;
-            padding: 20px;
+            padding: 30px;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            border-radius: 10px;
+            border-radius: 20px;
         }
         table {
             width: 100%;
-            margin: 20px 0;
+            margin: 15px 0;
             border-collapse: collapse;
         }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #006a7c;
-            color: white;
+        td, th {
+            padding: 15px;
+            text-align: center;
         }
         td {
-            background-color: #f9f9f9;
+            background-color: #f2f2f2;
+        }
+        th {
+            background-color: #1b1b1bda;
+            color: white;
         }
         button {
-            padding: 10px 20px;
-            margin-top: 20px;
+            padding: 10px;
             border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            color: white;
+        }
+        button.editar {
+            background-color: #007BFF;
+        }
+        button.editar:hover {
+            background-color: #0056b3;
+        }
+        button.excluir {
+            background-color: #FF5733;
+        }
+        button.excluir:hover {
+            background-color: #c13b1e;
+        }
+        button.registrar {
+            padding: 15px;
             width: 100%;
-            background-color: #006a7c;
+            background-color: #00e44c;
             color: white;
             border: none;
-            cursor: pointer;
+            border-radius: 10px;
+            margin-top: 20px;
         }
-        button:hover {
-            background-color: #00a2ca;
+        button.registrar:hover {
+            background-color: #00a028;
         }
-        
+        button.registrar a {
+            color: white;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+            table td, table th {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
 
+    <h2>Buscar Filmes</h2>
     <div class="container">
-        <h2>Buscar Filmes</h2>
-        <form action="/filmes" method="get">
-            <table id="filmesTable">
-                <thead>
+        
+        <table id="filmesTable">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Diretor</th>
+                    <th>Ano</th>
+                    <th>Gênero</th>
+                    <th colspan="2">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for filme in filmes %}
                     <tr>
-                        <th>Título</th>
-                        <th>Diretor</th>
-                        <th>Ano</th>
-                        <th>Gênero</th>
+                        <td>{{ filme.title }}</td>
+                        <td>{{ filme.director }}</td>
+                        <td>{{ filme.year }}</td>
+                        <td>{{ filme.gender }}</td>
+                        <!-- Botão de edição -->
+                        <td>
+                            <form action="/filmes/edit/{{ filme.id }}" method="get">
+                                <button type="submit" class="editar" aria-label="Editar {{ filme.title }}">Editar</button>
+                            </form>
+                        </td>
+                        <!-- Botão de exclusão -->
+                        <td>
+                            <form action="/filmes/delete/{{ filme.id }}" method="post" >
+                                <button type="submit" class="excluir" aria-label="Excluir {{ filme.title }}">Excluir</button>
+                            </form>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    {% for filme in filmes %}
-                        <tr>
-                            <td>{{ filme.title }}</td>
-                            <td>{{ filme.director }}</td>
-                            <td>{{ filme.year }}</td>
-                            <td>{{ filme.gender }}</td>
-                            <td><button class="editar">Editar</button></td>
-                            <td><button class="excluir">Excluir</button></td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            
-           
-            <button><a href="http://127.0.0.1:8000/filmes/register">Registrar</a></button>
-            
-            
-        </form>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Botão Registrar -->
+        <button class="registrar">
+            <a href="http://127.0.0.1:8000/filmes/register">Registrar</a>
+        </button>
     </div>
 
 </body>

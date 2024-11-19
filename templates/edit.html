@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Filme</title>
+    <style>
+        body {
+            background-image: url('./background.jpg');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            background-color: #202020;
+            padding: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            text-align: center;
+            font-size: 30px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Editar Filme</h2>
+        <form action="/filmes/edit/{{ filme.id }}" method="post">
+            <label for="title">Título:</label>
+            <input type="text" id="title" name="title" value="{{ filme.title }}" required>
+            
+            <label for="director">Diretor:</label>
+            <input type="text" id="director" name="director" value="{{ filme.director }}" required>
+            
+            <label for="year">Ano:</label>
+            <input type="number" id="year" name="year" value="{{ filme.year }}" min="1800" max="2100" required>
+            
+            <label for="gender">Gênero:</label>
+            <input type="text" id="gender" name="gender" value="{{ filme.gender }}" required>
+            
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </div>
+</body>
+</html>
+
